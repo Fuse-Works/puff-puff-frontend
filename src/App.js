@@ -15,7 +15,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* Redirect to SignIn if not authenticated, otherwise show Dashboard */}
-        <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" /> : <SignIn />} />
+        <Route path="/" element={isAuthenticated ? <Navigate to="/signin" /> : <SignIn />} />
         <Route path="/signin" element={<SignIn />} />
 
         {/* Protect the Dashboard route */}
