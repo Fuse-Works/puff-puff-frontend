@@ -1,72 +1,72 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import CssBaseline from '@mui/material/CssBaseline';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
-import FormControl from '@mui/material/FormControl';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import MuiCard from '@mui/material/Card';
-import { styled } from '@mui/material/styles';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import CssBaseline from "@mui/material/CssBaseline";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
+import FormControl from "@mui/material/FormControl";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import MuiCard from "@mui/material/Card";
+import { styled } from "@mui/material/styles";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const Card = styled(MuiCard)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignSelf: 'center',
-  width: '100%',
+  display: "flex",
+  flexDirection: "column",
+  alignSelf: "center",
+  width: "100%",
   padding: theme.spacing(4),
   gap: theme.spacing(2),
-  margin: 'auto',
-  [theme.breakpoints.up('sm')]: {
-    maxWidth: '450px',
+  margin: "auto",
+  [theme.breakpoints.up("sm")]: {
+    maxWidth: "450px",
   },
   boxShadow:
-    'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
-  ...theme.applyStyles('dark', {
+    "hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px",
+  ...theme.applyStyles("dark", {
     boxShadow:
-      'hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px',
+      "hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px",
   }),
 }));
 
 const SignInContainer = styled(Stack)(({ theme }) => ({
-  height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
-  minHeight: '100%',
+  height: "calc((1 - var(--template-frame-height, 0)) * 100dvh)",
+  minHeight: "100%",
   padding: theme.spacing(2),
-  [theme.breakpoints.up('sm')]: {
+  [theme.breakpoints.up("sm")]: {
     padding: theme.spacing(4),
   },
-  '&::before': {
+  "&::before": {
     content: '""',
-    display: 'block',
-    position: 'absolute',
+    display: "block",
+    position: "absolute",
     zIndex: -1,
     inset: 0,
     backgroundImage:
-      'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))',
-    backgroundRepeat: 'no-repeat',
-    ...theme.applyStyles('dark', {
+      "radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))",
+    backgroundRepeat: "no-repeat",
+    ...theme.applyStyles("dark", {
       backgroundImage:
-        'radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))',
+        "radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))",
     }),
   },
 }));
 
 export default function SignIn() {
   const [emailError, setEmailError] = React.useState(false);
-  const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
+  const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);
-  const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
+  const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
   const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
-  const [errorMessage, setErrorMessage] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState("");
   const navigate = useNavigate(); // React Router navigation
 
   // Handle form submission
@@ -84,60 +84,62 @@ export default function SignIn() {
     // Send API request
     try {
       const response = await axios.post(
-        'https://puff-puff-production.up.railway.app/login',
+        `https://puff-puff-production.up.railway.app/login`,
         { email, password },
         {
           headers: {
-            'Content-Type': 'application/json', // Ensure JSON is sent
+            "Content-Type": "application/json", // Ensure JSON is sent
           },
         }
       );
 
       // If login is successful, navigate to dashboard
       if (response.status === 200) {
-        navigate('/dashboard');
+        navigate("/dashboard");
+        console.log("Base URL:", process.env.APP_BASE_URL);
       } else {
-        alert('Login failed!');
+        alert("Login failed!");
       }
     } catch (error) {
       // Handle error cases
       if (error.response && error.response.status === 401) {
         // Extract error message from response data
-        const errorMessage = error.response.data.errors?.[0] || 'An unknown error occurred.';
+        const errorMessage =
+          error.response.data.errors?.[0] || "An unknown error occurred.";
         setErrorMessage(errorMessage);
         setOpenErrorDialog(true); // Show the error dialog
       } else {
-        console.error('Login error:', error);
-        alert('An error occurred during login.');
+        console.error("Login error:", error);
+        alert("An error occurred during login.");
       }
     }
   };
 
   // Validate email and password
   const validateInputs = () => {
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
 
     let isValid = true;
 
     // Validate email
     if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
       setEmailError(true);
-      setEmailErrorMessage('Please enter a valid email address.');
+      setEmailErrorMessage("Please enter a valid email address.");
       isValid = false;
     } else {
       setEmailError(false);
-      setEmailErrorMessage('');
+      setEmailErrorMessage("");
     }
 
     // Validate password
     if (!password.value || password.value.length < 6) {
       setPasswordError(true);
-      setPasswordErrorMessage('Password must be at least 6 characters long.');
+      setPasswordErrorMessage("Password must be at least 6 characters long.");
       isValid = false;
     } else {
       setPasswordError(false);
-      setPasswordErrorMessage('');
+      setPasswordErrorMessage("");
     }
 
     return isValid;
@@ -155,7 +157,7 @@ export default function SignIn() {
           <Typography
             component="h1"
             variant="h4"
-            sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
+            sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
           >
             Sign in
           </Typography>
@@ -164,9 +166,9 @@ export default function SignIn() {
             onSubmit={handleSubmit}
             noValidate
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: '100%',
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
               gap: 2,
             }}
           >
@@ -184,11 +186,11 @@ export default function SignIn() {
                 required
                 fullWidth
                 variant="outlined"
-                color={emailError ? 'error' : 'primary'}
+                color={emailError ? "error" : "primary"}
               />
             </FormControl>
             <FormControl>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                 <FormLabel htmlFor="password">Password</FormLabel>
               </Box>
               <TextField
@@ -203,35 +205,46 @@ export default function SignIn() {
                 required
                 fullWidth
                 variant="outlined"
-                color={passwordError ? 'error' : 'primary'}
+                color={passwordError ? "error" : "primary"}
               />
             </FormControl>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-            >
+            <Button type="submit" fullWidth variant="contained">
               Sign in
             </Button>
           </Box>
         </Card>
       </SignInContainer>
 
-      <Dialog open={openErrorDialog} onClose={handleCloseErrorDialog} aria-labelledby="error-dialog-title" aria-describedby="error-dialog-description">
-        <DialogTitle id="error-dialog-title" sx={{ color: 'error.main', fontWeight: 'bold' }}>
+      <Dialog
+        open={openErrorDialog}
+        onClose={handleCloseErrorDialog}
+        aria-labelledby="error-dialog-title"
+        aria-describedby="error-dialog-description"
+      >
+        <DialogTitle
+          id="error-dialog-title"
+          sx={{ color: "error.main", fontWeight: "bold" }}
+        >
           Login Error
         </DialogTitle>
         <DialogContent>
-          <Typography id="error-dialog-description" sx={{ color: 'text.secondary', mt: 1 }}>
+          <Typography
+            id="error-dialog-description"
+            sx={{ color: "text.secondary", mt: 1 }}
+          >
             {errorMessage}
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseErrorDialog} variant="outlined" color="error">
+          <Button
+            onClick={handleCloseErrorDialog}
+            variant="outlined"
+            color="error"
+          >
             Close
           </Button>
         </DialogActions>

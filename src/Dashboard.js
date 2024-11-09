@@ -1,27 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import { Grid, Card, CardContent, Typography, CircularProgress, CardActions, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from '@mui/material';
-import axios from 'axios';
-import Sidebar from './Sidebar';
+import React, { useEffect, useState } from "react";
+import {
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  CircularProgress,
+  CardActions,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+} from "@mui/material";
+import axios from "axios";
+import Sidebar from "./Sidebar";
 
 const Dashboard = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState("");
 
   useEffect(() => {
-    axios.get('https://puff-puff-production.up.railway.app/api/v1/private/admin/dashboard')
+    axios
+      .get(`https://puff-puff-production.up.railway.app/api/v1/private/admin/dashboard`)
       .then((response) => {
         setData(response.data);
         setLoading(false);
       })
       .catch((error) => {
-        console.error('Error fetching dashboard data:', error);
+        console.error("Error fetching dashboard data:", error);
+        console.log("Base URL:", process.env.APP_BASE_URL);
         setLoading(false);
       });
   }, []);
-
-  
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -29,7 +42,7 @@ const Dashboard = () => {
 
   const handleClose = () => {
     setOpen(false);
-    setAmount('');
+    setAmount("");
   };
 
   const handleAmountChange = (event) => {
@@ -38,39 +51,42 @@ const Dashboard = () => {
 
   const handleSubmit = async () => {
     try {
-        const formData = new FormData();
-        formData.append('amount', amount);
+      const formData = new FormData();
+      formData.append("amount", amount);
 
-        await axios.post('https://puff-puff-production.up.railway.app/api/v1/private/cash-collection', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
+      await axios.post(
+        `https://puff-puff-production.up.railway.app/api/v1/private/cash-collection`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-        // Update the collected cash amount in the data and close the dialog
-        setData((prevData) => ({
-            ...prevData, 
-            collectedCash: parseFloat(prevData.collectedCash) + parseFloat(amount),
-        }));
-        
-        setOpen(false);
+      // Update the collected cash amount in the data and close the dialog
+      setData((prevData) => ({
+        ...prevData,
+        collectedCash: parseFloat(prevData.collectedCash) + parseFloat(amount),
+      }));
+
+      setOpen(false);
     } catch (error) {
-        console.error('Error updating cash collection:', error);
+      console.error("Error updating cash collection:", error);
     }
-};
-
+  };
 
   if (loading) {
     return <CircularProgress />;
   }
 
   return (
-    <div style={{ display: 'flex', height: '100vh' }}>
+    <div style={{ display: "flex", gap: "13px" }}>
       {/* Sidebar */}
       <Sidebar />
 
       {/* Main Content */}
-      <div style={{ flex: 1, padding: '20px', overflowX: 'auto' }}>
+      <div style={{ flex: 1, padding: "20px", overflowX: "auto" }}>
         <Typography variant="h4" gutterBottom>
           Dashboard
         </Typography>
@@ -133,7 +149,7 @@ const Dashboard = () => {
 
           {/* Card for Collected Cash Amount */}
           <Grid item xs={12} sm={6} md={6}>
-            <Card sx={{ minWidth: 275, position: 'relative' }}>
+            <Card sx={{ minWidth: 275, position: "relative" }}>
               <CardContent>
                 <Typography variant="h6" component="div">
                   Collected Cash Amount
@@ -142,8 +158,12 @@ const Dashboard = () => {
                   {data.collectedCash} Taka
                 </Typography>
               </CardContent>
-              <CardActions sx={{ justifyContent: 'flex-end' }}>
-                <Button variant="contained" color="primary" onClick={handleClickOpen}>
+              <CardActions sx={{ justifyContent: "flex-end" }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleClickOpen}
+                >
                   Update Amount
                 </Button>
               </CardActions>
@@ -154,7 +174,7 @@ const Dashboard = () => {
           <Dialog
             open={open}
             onClose={handleClose}
-            maxWidth="sm"  // Adjust to "md" or "lg" for a larger dialog
+            maxWidth="sm" // Adjust to "md" or "lg" for a larger dialog
             fullWidth
           >
             <DialogTitle>Cash Collection</DialogTitle>
@@ -175,13 +195,15 @@ const Dashboard = () => {
               <Button onClick={handleClose} color="secondary">
                 Cancel
               </Button>
-              <Button onClick={handleSubmit} color="primary" variant="contained">
+              <Button
+                onClick={handleSubmit}
+                color="primary"
+                variant="contained"
+              >
                 Submit
               </Button>
             </DialogActions>
           </Dialog>
-
-
         </Grid>
       </div>
     </div>

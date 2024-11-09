@@ -10,7 +10,7 @@ const VerificationRequests = () => {
 
   // Fetch data from the API
   useEffect(() => {
-    axios.get('https://puff-puff-production.up.railway.app/api/v1/private/users')
+    axios.get(`https://puff-puff-production.up.railway.app/api/v1/private/users`)
       .then((response) => {
         setData(response.data); // Store response data in state
         setLoading(false); // Stop the loading spinner
@@ -26,7 +26,7 @@ const VerificationRequests = () => {
     const formData = new FormData();
     formData.append('userId', userId);
 
-    axios.put('https://puff-puff-production.up.railway.app/api/v1/private/verify-account', formData)
+    axios.put(`https://puff-puff-production.up.railway.app/api/v1/private/verify-account`, formData)
       .then(() => {
         // Update the user's verified status in the local state
         setData((prevData) =>
@@ -46,7 +46,7 @@ const VerificationRequests = () => {
   }
 
   return (
-    <div style={{ display: 'flex', height: '100vh' }}>
+    <div style={{ display: 'flex', gap: '14px',}}>
       {/* Sidebar */}
       <Sidebar />
 

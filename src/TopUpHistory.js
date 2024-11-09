@@ -9,7 +9,7 @@ const TopUpHistory = () => {
     const [page, setPage] = useState(0); // Current page number
     const [totalPages, setTotalPages] = useState(0); // Total number of pages
 
-    const pageSize = 10; // Number of items per page
+    const pageSize = 10; 
 
     const fetchTopUpHistory = (page) => {
         setLoading(true);
@@ -42,7 +42,7 @@ const TopUpHistory = () => {
     }
 
     return (
-        <div style={{ display: 'flex', height: '100vh' }}>
+        <div style={{ display: 'flex', gap: '14px' }}>
             <Sidebar />
             <div style={{ flex: 1, padding: '20px', overflowX: 'auto' }}>
                 <h2>Top-Up History</h2>

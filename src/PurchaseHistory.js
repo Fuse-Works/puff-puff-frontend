@@ -43,7 +43,7 @@ const PurchaseHistory = () => {
     }
 
     return (
-        <div style={{ display: 'flex', height: '100vh' }}>
+        <div style={{ display: 'flex', gap: '14px' }}>
             <Sidebar />
             <div style={{ flex: 1, padding: '20px', overflowX: 'auto' }}>
                 <h2>Purchase History</h2>
