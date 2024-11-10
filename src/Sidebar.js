@@ -202,7 +202,7 @@ const Sidebar = () => {
         <img
           style={{ height: "30px", width: "30px", borderRadius: "50%" }}
           src="https://via.placeholder.com/50"
-          alt="Demo image"
+          alt="Not Found"
         />
         <h5 style={{ fontSize: "14px", fontStyle: "italic", color: '#14b8a6', }}>
           Mohammad Masudul Alam
