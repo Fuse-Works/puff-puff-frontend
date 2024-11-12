@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Grid,
   Card,
   CardContent,
   Typography,
@@ -12,11 +11,17 @@ import {
   DialogContent,
   DialogActions,
   TextField,
+  Box
 } from "@mui/material";
+
+import Grid from '@mui/material/Grid2';
+
+import Stack from '@mui/material/Stack';
+import Skeleton from '@mui/material/Skeleton';
 
 import axios from "axios";
 import Sidebar from "./Sidebar";
-                           
+
 const Dashboard = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -78,136 +83,141 @@ const Dashboard = () => {
   };
 
   if (loading) {
-    return <CircularProgress />;
+    return (<Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={8}>
+        <Grid size={6}>
+          <Skeleton variant="circular" width={40} height={40} />
+        </Grid>
+      </Grid>
+    </Box>)
   }
 
   return (
-    <div style={{ display: "flex", gap: "13px" }}>
-      {/* Sidebar */}
-      <Sidebar />
 
-      {/* Main Content */}
-      <div style={{ flex: 1, padding: "20px", overflowX: "auto" }}>
-        <Typography variant="h4" gutterBottom>
-          Dashboard
-        </Typography>
-        <Grid container spacing={3}>
-          {/* Card for Total Purchase Quantity */}
-          <Grid item xs={12} sm={6} md={6}>
-            <Card sx={{ minWidth: 275 }}>
-              <CardContent>
-                <Typography variant="h6" component="div">
-                  Total Purchase Quantity
-                </Typography>
-                <Typography variant="h4" color="primary">
-                  {data.totalPurchaseQuantity} Pieces
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          {/* Card for Total Purchase Amount */}
-          <Grid item xs={12} sm={6} md={6}>
-            <Card sx={{ minWidth: 275 }}>
-              <CardContent>
-                <Typography variant="h6" component="div">
-                  Total Purchase Amount
-                </Typography>
-                <Typography variant="h4" color="primary">
-                  {data.totalPurchaseAmount} Taka
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          {/* Card for Total Top Up Amount */}
-          <Grid item xs={12} sm={6} md={6}>
-            <Card sx={{ minWidth: 275 }}>
-              <CardContent>
-                <Typography variant="h6" component="div">
-                  Total Top Up Amount
-                </Typography>
-                <Typography variant="h4" color="primary">
-                  {data.totalTopUpAmount} Taka
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          {/* Card for Total Top Up Count */}
-          <Grid item xs={12} sm={6} md={6}>
-            <Card sx={{ minWidth: 275 }}>
-              <CardContent>
-                <Typography variant="h6" component="div">
-                  Total Top Up Count
-                </Typography>
-                <Typography variant="h4" color="primary">
-                  {data.totalTopUpCount} Times
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          {/* Card for Collected Cash Amount */}
-          <Grid item xs={12} sm={6} md={6}>
-            <Card sx={{ minWidth: 275, position: "relative" }}>
-              <CardContent>
-                <Typography variant="h6" component="div">
-                  Collected Cash Amount
-                </Typography>
-                <Typography variant="h4" color="primary">
-                  {data.collectedCash} Taka
-                </Typography>
-              </CardContent>
-              <CardActions sx={{ justifyContent: "flex-end" }}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleClickOpen}
-                >
-                  Update Amount
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-
-          {/* Dialog for Cash Collection Update */}
-          <Dialog
-            open={open}
-            onClose={handleClose}
-            maxWidth="sm" // Adjust to "md" or "lg" for a larger dialog
-            fullWidth
-          >
-            <DialogTitle>Cash Collection</DialogTitle>
-            <DialogContent>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="amount"
-                label="Amount"
-                type="number"
-                fullWidth
-                variant="outlined"
-                value={amount}
-                onChange={handleAmountChange}
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose} color="secondary">
-                Cancel
-              </Button>
-              <Button
-                onClick={handleSubmit}
-                color="primary"
-                variant="contained"
-              >
-                Submit
-              </Button>
-            </DialogActions>
-          </Dialog>
+    <Box>
+      <Typography variant="h4" gutterBottom sx={{ display: "block" }}>
+        Dashboard
+      </Typography>
+      <Grid container spacing={3}>
+        {/* Card for Total Purchase Quantity */}
+        <Grid item xs={12} sm={6} md={6}>
+          <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+              <Typography variant="h6" component="div">
+                Total Purchase Quantity
+              </Typography>
+              <Typography variant="h4" color="primary">
+                {data.totalPurchaseQuantity} Pieces
+              </Typography>
+            </CardContent>
+          </Card>
         </Grid>
-      </div>
-    </div>
+
+        {/* Card for Total Purchase Amount */}
+        <Grid item xs={12} sm={6} md={6}>
+          <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+              <Typography variant="h6" component="div">
+                Total Purchase Amount
+              </Typography>
+              <Typography variant="h4" color="primary">
+                {data.totalPurchaseAmount} Taka
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Card for Total Top Up Amount */}
+        <Grid item xs={12} sm={6} md={6}>
+          <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+              <Typography variant="h6" component="div">
+                Total Top Up Amount
+              </Typography>
+              <Typography variant="h4" color="primary">
+                {data.totalTopUpAmount} Taka
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Card for Total Top Up Count */}
+        <Grid item xs={12} sm={6} md={6}>
+          <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+              <Typography variant="h6" component="div">
+                Total Top Up Count
+              </Typography>
+              <Typography variant="h4" color="primary">
+                {data.totalTopUpCount} Times
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Card for Collected Cash Amount */}
+        <Grid item xs={12} sm={6} md={6}>
+          <Card sx={{ minWidth: 275, position: "relative" }}>
+            <CardContent>
+              <Typography variant="h6" component="div">
+                Collected Cash Amount
+              </Typography>
+              <Typography variant="h4" color="primary">
+                {data.collectedCash} Taka
+              </Typography>
+            </CardContent>
+            <CardActions sx={{ justifyContent: "flex-end" }}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleClickOpen}
+              >
+                Update Amount
+              </Button>
+            </CardActions>
+          </Card>
+        </Grid>
+
+        {/* Dialog for Cash Collection Update */}
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          maxWidth="sm" // Adjust to "md" or "lg" for a larger dialog
+          fullWidth
+        >
+          <DialogTitle>Cash Collection</DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="amount"
+              label="Amount"
+              type="number"
+              fullWidth
+              variant="outlined"
+              value={amount}
+              onChange={handleAmountChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="secondary">
+              Cancel
+            </Button>
+            <Button
+              onClick={handleSubmit}
+              color="primary"
+              variant="contained"
+            >
+              Submit
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Grid>
+
+    </Box>
+
+
+
   );
 };
 

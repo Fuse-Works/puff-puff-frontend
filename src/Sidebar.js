@@ -15,6 +15,7 @@ import AnalyticsIcon from "@mui/icons-material/Analytics";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import NewReleasesIcon from "@mui/icons-material/NewReleases";
+import AccessibleForwardIcon from '@mui/icons-material/AccessibleForward';
 import { useNavigate, useLocation } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -142,10 +143,10 @@ const Sidebar = () => {
           </ListItem>
           <ListItem
             button
-            onClick={() => navigate("/settings")}
+            onClick={() => navigate("/agent-users")}
             sx={{
-              backgroundColor: isActive("/settings") ? "#FC2861" : "inherit",
-              color: isActive("/settings") ? "#ffffff" : "inherit",
+              backgroundColor: isActive("/agent-users") ? "#FC2861" : "inherit",
+              color: isActive("/agent-users") ? "#ffffff" : "inherit",
               borderRadius: "10px",
               "&:hover": {
                 backgroundColor: "grey",
@@ -154,13 +155,13 @@ const Sidebar = () => {
             }}
           >
             <ListItemIcon>
-              <SettingsIcon
+              <AccessibleForwardIcon
                 sx={{
-                  color: isActive("/settings") ? "#ffffff" : "inherit",
+                  color: isActive("/agent-users") ? "#ffffff" : "inherit",
                 }}
               />
             </ListItemIcon>
-            <ListItemText primary="Settings" />
+            <ListItemText primary="Agents" />
           </ListItem>
           <ListItem
             button

@@ -1,8 +1,6 @@
-// VerificationRequests.js
 import React, { useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress, Button } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Skeleton, Button } from '@mui/material';
 import axios from 'axios';
-import Sidebar from './Sidebar';
 
 const VerificationRequests = () => {
   const [data, setData] = useState([]);
@@ -10,7 +8,8 @@ const VerificationRequests = () => {
 
   // Fetch data from the API
   useEffect(() => {
-    axios.get(`https://puff-puff-production.up.railway.app/api/v1/private/users`)
+    axios
+      .get(`https://puff-puff-production.up.railway.app/api/v1/private/users`)
       .then((response) => {
         setData(response.data); // Store response data in state
         setLoading(false); // Stop the loading spinner
@@ -26,7 +25,8 @@ const VerificationRequests = () => {
     const formData = new FormData();
     formData.append('userId', userId);
 
-    axios.put(`https://puff-puff-production.up.railway.app/api/v1/private/verify-account`, formData)
+    axios
+      .put(`https://puff-puff-production.up.railway.app/api/v1/private/verify-account`, formData)
       .then(() => {
         // Update the user's verified status in the local state
         setData((prevData) =>
@@ -40,63 +40,80 @@ const VerificationRequests = () => {
       });
   };
 
-  // If data is still loading, show a spinner
-  if (loading) {
-    return <CircularProgress />;
-  }
-
   return (
-    <div style={{ display: 'flex', gap: '14px',}}>
-      {/* Sidebar */}
-      <Sidebar />
+    <div style={{ flex: 1, padding: '20px', overflowX: 'auto' }}>
+      <h2>Verification Requests</h2>
 
-      {/* Main content area */}
-      <div style={{ flex: 1, padding: '20px', overflowX: 'auto' }}>
-        <h2>Verification Requests</h2>
-        
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="verification requests table">
-            <TableHead>
-              <TableRow>
-                <TableCell sx={{ fontWeight: 'bold' }}>Full Name</TableCell>
-                <TableCell sx={{ fontWeight: 'bold' }}>Email</TableCell>
-                <TableCell sx={{ fontWeight: 'bold' }}>QR Code</TableCell>
-                <TableCell sx={{ fontWeight: 'bold' }}>Balance</TableCell>
-                <TableCell sx={{ fontWeight: 'bold' }}>Puff Points</TableCell>
-                <TableCell sx={{ fontWeight: 'bold' }}>Verified</TableCell>
-                <TableCell sx={{ fontWeight: 'bold' }}>Update Status</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.map((user) => (
-                <TableRow key={user.id}>
-                  <TableCell>{user.fullName}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.qrCode}</TableCell>
-                  <TableCell>{user.balance}</TableCell>
-                  <TableCell>{user.puffPoint}</TableCell>
-                  <TableCell>{user.verified ? 'Yes' : 'No'}</TableCell>
-                  <TableCell>
-                    {user.verified ? (
-                      <Button variant="contained" color="success" disabled>
-                        Verified
-                      </Button>
-                    ) : (
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => verifyUser(user.id)}
-                      >
-                        Verify User
-                      </Button>
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="verification requests table">
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{ fontWeight: 'bold' }}>Full Name</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>Email</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>QR Code</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>Balance</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>Puff Points</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>Verified</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>Update Status</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {loading
+              ? // Show skeleton rows when loading
+                Array.from({ length: 5 }).map((_, index) => (
+                  <TableRow key={index}>
+                    <TableCell>
+                      <Skeleton variant="text" width={100} />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton variant="text" width={150} />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton variant="text" width={80} />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton variant="text" width={70} />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton variant="text" width={90} />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton variant="text" width={50} />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton variant="rectangular" width={120} height={36} />
+                    </TableCell>
+                  </TableRow>
+                ))
+              : // Render actual data when loading is complete
+                data.map((user) => (
+                  <TableRow key={user.id}>
+                    <TableCell>{user.fullName}</TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell>{user.qrCode}</TableCell>
+                    <TableCell>{user.balance}</TableCell>
+                    <TableCell>{user.puffPoint}</TableCell>
+                    <TableCell>{user.verified ? 'Yes' : 'No'}</TableCell>
+                    <TableCell>
+                      {user.verified ? (
+                        <Button variant="contained" color="success" disabled>
+                          Verified
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={() => verifyUser(user.id)}
+                        >
+                          Verify User
+                        </Button>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 };

@@ -16,7 +16,8 @@ import { useNavigate } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
+import DialogTitle from "@mui/material/DialogTitle"; 
+import Grid from '@mui/material/Grid2';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -151,13 +152,13 @@ export default function SignIn() {
 
   return (
     <>
-      <CssBaseline enableColorScheme />
-      <SignInContainer direction="column" justifyContent="space-between">
-        <Card variant="outlined">
-          <Typography
+     
+       <Grid container alignItems="center" justifyContent="center" sx={{height:"100vh",width:"100%"}}>
+        <Box sx={{width:"500px",background:"#fff",p:8}}>
+        <Typography
             component="h1"
             variant="h4"
-            sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
+            // sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
           >
             Sign in
           </Typography>
@@ -216,8 +217,14 @@ export default function SignIn() {
               Sign in
             </Button>
           </Box>
-        </Card>
-      </SignInContainer>
+        </Box>
+       
+       </Grid>
+
+   
+        
+    
+    
 
       <Dialog
         open={openErrorDialog}
