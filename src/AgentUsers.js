@@ -20,6 +20,8 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import SignUp from './SignUp';
+import SkeletonTable from './SkeletonTable';
+
 
 const AgentUsers = () => {
     const [agentUsers, setAgentUsers] = useState([]);
@@ -93,19 +95,9 @@ const AgentUsers = () => {
                     </TableHead>
                     <TableBody>
                         {loading
-                            ? Array.from(new Array(pageSize)).map((_, index) => (
-                                <TableRow key={index}>
-                                    <TableCell>
-                                        <Skeleton variant="text" width="80%" />
-                                    </TableCell>
-                                    <TableCell>
-                                        <Skeleton variant="text" width="60%" />
-                                    </TableCell>
-                                    <TableCell>
-                                        <Skeleton variant="text" width="70%" />
-                                    </TableCell>
-                                </TableRow>
-                            ))
+                            ? (
+                                <SkeletonTable columns={3} rows={pageSize} />
+                              )
                             : agentUsers.map((user) => (
                                 <TableRow key={user.id}>
                                     <TableCell>{user.id}</TableCell>

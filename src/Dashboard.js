@@ -3,7 +3,6 @@ import {
   Card,
   CardContent,
   Typography,
-  CircularProgress,
   CardActions,
   Button,
   Dialog,
@@ -11,16 +10,13 @@ import {
   DialogContent,
   DialogActions,
   TextField,
-  Box
+  Box,
+  Grid,
+  Skeleton
 } from "@mui/material";
-
-import Grid from '@mui/material/Grid2';
-
-import Stack from '@mui/material/Stack';
-import Skeleton from '@mui/material/Skeleton';
-
 import axios from "axios";
-import Sidebar from "./Sidebar";
+import SkeletonTable from './SkeletonTable';
+
 
 const Dashboard = () => {
   const [data, setData] = useState(null);
@@ -37,7 +33,6 @@ const Dashboard = () => {
       })
       .catch((error) => {
         console.error("Error fetching dashboard data:", error);
-        console.log("Base URL:", process.env.APP_BASE_URL);
         setLoading(false);
       });
   }, []);
@@ -70,7 +65,6 @@ const Dashboard = () => {
         }
       );
 
-      // Update the collected cash amount in the data and close the dialog
       setData((prevData) => ({
         ...prevData,
         collectedCash: parseFloat(prevData.collectedCash) + parseFloat(amount),
@@ -83,25 +77,30 @@ const Dashboard = () => {
   };
 
   if (loading) {
-    return (<Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={8}>
-        <Grid size={6}>
-          <Skeleton variant="circular" width={40} height={40} />
+    return (
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={3}>
+          {[...Array(3)].map((_, idx) => (
+            <Grid item xs={12} sm={4} key={idx}>
+              <Skeleton variant="rectangular" height={200} />
+              <Skeleton variant="text" height={40} sx={{ marginTop: 1 }} />
+              <Skeleton variant="text" width="80%" sx={{ marginTop: 1 }} />
+            </Grid>
+          ))}
         </Grid>
-      </Grid>
-    </Box>)
+      </Box>
+    );
   }
 
   return (
-
-    <Box>
+    <Box sx={{ padding: "20px" }}>
       <Typography variant="h4" gutterBottom sx={{ display: "block" }}>
         Dashboard
       </Typography>
       <Grid container spacing={3}>
-        {/* Card for Total Purchase Quantity */}
-        <Grid item xs={12} sm={6} md={6}>
-          <Card sx={{ minWidth: 275 }}>
+        {/* Total Purchase Quantity Card */}
+        <Grid item xs={12} sm={4} md={4}>
+          <Card sx={{ minWidth: 275, height: "100%" }}>
             <CardContent>
               <Typography variant="h6" component="div">
                 Total Purchase Quantity
@@ -113,9 +112,9 @@ const Dashboard = () => {
           </Card>
         </Grid>
 
-        {/* Card for Total Purchase Amount */}
-        <Grid item xs={12} sm={6} md={6}>
-          <Card sx={{ minWidth: 275 }}>
+        {/* Total Purchase Amount Card */}
+        <Grid item xs={12} sm={4} md={4}>
+          <Card sx={{ minWidth: 275, height: "100%" }}>
             <CardContent>
               <Typography variant="h6" component="div">
                 Total Purchase Amount
@@ -127,9 +126,9 @@ const Dashboard = () => {
           </Card>
         </Grid>
 
-        {/* Card for Total Top Up Amount */}
-        <Grid item xs={12} sm={6} md={6}>
-          <Card sx={{ minWidth: 275 }}>
+        {/* Total Top Up Amount Card */}
+        <Grid item xs={12} sm={4} md={4}>
+          <Card sx={{ minWidth: 275, height: "100%" }}>
             <CardContent>
               <Typography variant="h6" component="div">
                 Total Top Up Amount
@@ -141,9 +140,9 @@ const Dashboard = () => {
           </Card>
         </Grid>
 
-        {/* Card for Total Top Up Count */}
-        <Grid item xs={12} sm={6} md={6}>
-          <Card sx={{ minWidth: 275 }}>
+        {/* Total Top Up Count Card */}
+        <Grid item xs={12} sm={4} md={4}>
+          <Card sx={{ minWidth: 275, height: "100%" }}>
             <CardContent>
               <Typography variant="h6" component="div">
                 Total Top Up Count
@@ -155,26 +154,25 @@ const Dashboard = () => {
           </Card>
         </Grid>
 
-        {/* Card for Collected Cash Amount */}
-        <Grid item xs={12} sm={6} md={6}>
-          <Card sx={{ minWidth: 275, position: "relative" }}>
-            <CardContent>
+        {/* Collected Cash Amount Card */}
+        <Grid item xs={12} sm={4} md={4}>
+          <Card sx={{ minWidth: 275 }}>
+            <CardContent sx={{ display: "flex", flexDirection: "column" }}>
               <Typography variant="h6" component="div">
                 Collected Cash Amount
               </Typography>
               <Typography variant="h4" color="primary">
                 {data.collectedCash} Taka
               </Typography>
-            </CardContent>
-            <CardActions sx={{ justifyContent: "flex-end" }}>
               <Button
-                variant="contained"
-                color="primary"
-                onClick={handleClickOpen}
-              >
-                Update Amount
-              </Button>
-            </CardActions>
+                  variant="outlined"
+                  sx={{ width: '180px', mt: 2, ml: 'auto' }}
+                  color="primary"
+                  onClick={handleClickOpen}
+                >
+                  Update Amount
+                </Button>
+            </CardContent>
           </Card>
         </Grid>
 
@@ -213,11 +211,7 @@ const Dashboard = () => {
           </DialogActions>
         </Dialog>
       </Grid>
-
     </Box>
-
-
-
   );
 };
 

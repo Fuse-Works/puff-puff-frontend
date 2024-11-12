@@ -1,22 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Pagination,
-  Skeleton,
-} from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Pagination } from '@mui/material';
 import axios from 'axios';
+import SkeletonTable from './SkeletonTable';
 
 const TopUpHistory = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(0); // Current page number
-  const [totalPages, setTotalPages] = useState(0); // Total number of pages
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
   const pageSize = 10;
 
@@ -27,8 +18,8 @@ const TopUpHistory = () => {
         params: { page, size: pageSize },
       })
       .then((response) => {
-        setData(response.data.content); // Set response data to table content
-        setTotalPages(response.data.totalPages); // Set total pages for pagination
+        setData(response.data.content);
+        setTotalPages(response.data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
@@ -37,13 +28,12 @@ const TopUpHistory = () => {
       });
   };
 
-  // Fetch data when the component loads or when page number changes
   useEffect(() => {
     fetchTopUpHistory(page);
   }, [page]);
 
   const handlePageChange = (event, newPage) => {
-    setPage(newPage - 1); // Adjust page index for 0-based pagination
+    setPage(newPage - 1);
   };
 
   return (
@@ -62,55 +52,25 @@ const TopUpHistory = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {loading
-              ? // Show skeleton rows when loading
-                Array.from(new Array(pageSize)).map((_, index) => (
-                  <TableRow key={index}>
-                    <TableCell>
-                      <Skeleton variant="text" width="80%" />
-                    </TableCell>
-                    <TableCell>
-                      <Skeleton variant="text" width="50%" />
-                    </TableCell>
-                    <TableCell>
-                      <Skeleton variant="text" width="60%" />
-                    </TableCell>
-                    <TableCell>
-                      <Skeleton variant="text" width="60%" />
-                    </TableCell>
-                    <TableCell>
-                      <Skeleton variant="text" width="70%" />
-                    </TableCell>
-                    <TableCell sx={{ textAlign: 'center' }}>
-                      <Skeleton variant="text" width="80%" />
-                    </TableCell>
-                  </TableRow>
-                ))
-              : // Display actual data when loaded
-                data.map((topUp) => (
-                  <TableRow key={topUp.id}>
-                    <TableCell>{topUp.customerName}</TableCell>
-                    <TableCell>{topUp.amount}</TableCell>
-                    <TableCell>{topUp.previousBalance}</TableCell>
-                    <TableCell>{topUp.updatedBalance}</TableCell>
-                    <TableCell>{topUp.customerQr}</TableCell>
-                    <TableCell sx={{ textAlign: 'center' }}>
-                      {new Date(topUp.createdAt).toLocaleString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        hour: 'numeric',
-                        minute: 'numeric',
-                        hour12: true,
-                      })}
-                    </TableCell>
-                  </TableRow>
-                ))}
+            {loading ? (
+              <SkeletonTable columns={6} rows={pageSize} />
+            ) : (
+              data.map((topUp) => (
+                <TableRow key={topUp.id}>
+                  <TableCell>{topUp.customerName}</TableCell>
+                  <TableCell>{topUp.amount}</TableCell>
+                  <TableCell>{topUp.previousBalance}</TableCell>
+                  <TableCell>{topUp.updatedBalance}</TableCell>
+                  <TableCell>{topUp.customerQr}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>
+                    {new Date(topUp.createdAt).toLocaleString()}
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>
-
-      {/* Pagination Controls */}
       <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
         <Pagination count={totalPages} page={page + 1} onChange={handlePageChange} color="primary" />
       </div>

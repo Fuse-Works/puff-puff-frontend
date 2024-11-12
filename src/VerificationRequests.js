@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Skeleton, Button } from '@mui/material';
 import axios from 'axios';
+import SkeletonTable from './SkeletonTable';
 
 const VerificationRequests = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  
+  // Define pageSize for pagination or skeleton loading
+  const pageSize = 10;  // Or any other value you want for pagination
 
   // Fetch data from the API
   useEffect(() => {
     axios
-      .get(`https://puff-puff-production.up.railway.app/api/v1/private/users`)
+      .get('https://puff-puff-production.up.railway.app/api/v1/private/users')
       .then((response) => {
         setData(response.data); // Store response data in state
         setLoading(false); // Stop the loading spinner
@@ -26,7 +30,7 @@ const VerificationRequests = () => {
     formData.append('userId', userId);
 
     axios
-      .put(`https://puff-puff-production.up.railway.app/api/v1/private/verify-account`, formData)
+      .put('https://puff-puff-production.up.railway.app/api/v1/private/verify-account', formData)
       .then(() => {
         // Update the user's verified status in the local state
         setData((prevData) =>
@@ -59,32 +63,10 @@ const VerificationRequests = () => {
           </TableHead>
           <TableBody>
             {loading
-              ? // Show skeleton rows when loading
-                Array.from({ length: 5 }).map((_, index) => (
-                  <TableRow key={index}>
-                    <TableCell>
-                      <Skeleton variant="text" width={100} />
-                    </TableCell>
-                    <TableCell>
-                      <Skeleton variant="text" width={150} />
-                    </TableCell>
-                    <TableCell>
-                      <Skeleton variant="text" width={80} />
-                    </TableCell>
-                    <TableCell>
-                      <Skeleton variant="text" width={70} />
-                    </TableCell>
-                    <TableCell>
-                      <Skeleton variant="text" width={90} />
-                    </TableCell>
-                    <TableCell>
-                      <Skeleton variant="text" width={50} />
-                    </TableCell>
-                    <TableCell>
-                      <Skeleton variant="rectangular" width={120} height={36} />
-                    </TableCell>
-                  </TableRow>
-                ))
+              ? (
+                // Pass pageSize to SkeletonTable for skeleton loading
+                <SkeletonTable columns={7} rows={pageSize} />
+              )
               : // Render actual data when loading is complete
                 data.map((user) => (
                   <TableRow key={user.id}>
