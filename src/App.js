@@ -8,8 +8,6 @@ import PurchaseHistory from './PurchaseHistory'
 import TopUpHistory from './TopUpHistory'
 import Layout from './layout/Layout'
 
-axios.defaults.baseURL = process.env.APP_BASE_URL;
-
 
 function App() {
   // Placeholder for authentication logic
