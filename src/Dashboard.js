@@ -83,14 +83,17 @@ const Dashboard = () => {
       </Typography>
       <Grid container spacing={3}>
         {loading ? (
-          // Render skeletons while loading
+          // Render skeletons for data portions while loading
           [...Array(5)].map((_, idx) => (
             <Grid item xs={12} sm={4} key={idx}>
               <Card sx={{ minWidth: 275, height: "100%" }}>
                 <CardContent>
-                  <Skeleton variant="rectangular" height={200} width="100%" />
-                  <Skeleton variant="text" height={40} width="100%" sx={{ marginTop: 1 }} />
-                  <Skeleton variant="text" width="80%" sx={{ marginTop: 1 }} />
+                  <Typography variant="h6" component="div">
+                    <Skeleton variant="text" width="60%" />
+                  </Typography>
+                  <Typography variant="h4" color="primary">
+                    <Skeleton variant="text" width="100%" />
+                  </Typography>
                 </CardContent>
               </Card>
             </Grid>
