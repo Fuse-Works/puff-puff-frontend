@@ -3,7 +3,7 @@ import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import SignIn from '../SignIn';
 import Dashboard from '../Dashboard';
-import VerificationRequets from '../VerificationRequests'
+import VerificationRequets from '../UserManagement'
 import PurchaseHistory from '../PurchaseHistory'
 import TopUpHistory from '../TopUpHistory'
 import SignUp from '../SignUp';

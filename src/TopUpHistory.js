@@ -43,11 +43,11 @@ const TopUpHistory = () => {
         <Table sx={{ minWidth: 650 }} aria-label="top-up history table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }}>Customer Name</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Amount</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Previous Balance</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Updated Balance</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Customer QR</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', textAlign: 'center' }}>Customer Name</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', textAlign: 'center' }}>Amount</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', textAlign: 'center' }}>Previous Balance</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', textAlign: 'center' }}>Updated Balance</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', textAlign: 'center' }}>Customer QR</TableCell>
               <TableCell sx={{ fontWeight: 'bold', textAlign: 'center' }}>Date</TableCell>
             </TableRow>
           </TableHead>
@@ -57,11 +57,11 @@ const TopUpHistory = () => {
             ) : (
               data.map((topUp) => (
                 <TableRow key={topUp.id}>
-                  <TableCell>{topUp.customerName}</TableCell>
-                  <TableCell>{topUp.amount}</TableCell>
-                  <TableCell>{topUp.previousBalance}</TableCell>
-                  <TableCell>{topUp.updatedBalance}</TableCell>
-                  <TableCell>{topUp.customerQr}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{topUp.customerName}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{topUp.amount}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{topUp.previousBalance}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{topUp.updatedBalance}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{topUp.customerQr}</TableCell>
                   <TableCell sx={{ textAlign: 'center' }}>
                     {new Date(topUp.createdAt).toLocaleString()}
                   </TableCell>

@@ -91,7 +91,7 @@ const Sidebar = () => {
                 }}
               />
             </ListItemIcon>
-            <ListItemText primary="Verification Requests" />
+            <ListItemText primary="User Management" />
           </ListItem>
           <ListItem
             button

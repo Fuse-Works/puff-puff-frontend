@@ -43,11 +43,11 @@ const PurchaseHistory = () => {
         <Table sx={{ minWidth: 650 }} aria-label="purchase history table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }}>Customer Name</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Product Name</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Quantity</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Unit Price</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Total Price</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', textAlign: 'center' }}>Customer Name</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', textAlign: 'center' }}>Product Name</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', textAlign: 'center' }}>Quantity</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', textAlign: 'center' }}>Unit Price</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', textAlign: 'center' }}>Total Price</TableCell>
               <TableCell sx={{ fontWeight: 'bold', textAlign: 'center' }}>Date</TableCell>
             </TableRow>
           </TableHead>
@@ -57,12 +57,12 @@ const PurchaseHistory = () => {
             ) : (
               data.map((purchase) => (
                 <TableRow key={purchase.id}>
-                  <TableCell>{purchase.customerName}</TableCell>
-                  <TableCell>{purchase.productName}</TableCell>
-                  <TableCell>{purchase.quantity}</TableCell>
-                  <TableCell>{purchase.unitPrice}</TableCell>
-                  <TableCell>{purchase.totalPrice}</TableCell>
-                  <TableCell>{new Date(purchase.createdAt).toLocaleString()}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{purchase.customerName}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{purchase.productName}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{purchase.quantity}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{purchase.unitPrice}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{purchase.totalPrice}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{new Date(purchase.createdAt).toLocaleString()}</TableCell>
                 </TableRow>
               ))
             )}

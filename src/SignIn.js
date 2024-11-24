@@ -96,6 +96,9 @@ export default function SignIn() {
 
       // If login is successful, navigate to dashboard
       if (response.status === 200) {
+        const accessToken = response.data.access_token; // Assuming token is in this field
+        localStorage.setItem('access_token', accessToken); // Store token in localStorage
+        
         navigate("/dashboard");
         console.log("Base URL:", process.env.APP_BASE_URL);
       } else {

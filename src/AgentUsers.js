@@ -88,9 +88,9 @@ const AgentUsers = () => {
                 <Table sx={{ minWidth: 650 }} aria-label="agent users table">
                     <TableHead>
                         <TableRow>
-                            <TableCell sx={{ fontWeight: 'bold' }}>User ID</TableCell>
-                            <TableCell sx={{ fontWeight: 'bold' }}>Full Name</TableCell>
-                            <TableCell sx={{ fontWeight: 'bold' }}>Email</TableCell>
+                            <TableCell sx={{ fontWeight: 'bold'}}>User ID</TableCell>
+                            <TableCell sx={{ fontWeight: 'bold'}}>Full Name</TableCell>
+                            <TableCell sx={{ fontWeight: 'bold'}}>Email</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
