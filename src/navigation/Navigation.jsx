@@ -8,6 +8,7 @@ import PurchaseHistory from '../PurchaseHistory'
 import TopUpHistory from '../TopUpHistory'
 import SignUp from '../SignUp';
 import AgentUsers from '../AgentUsers';
+import Chalan from '../Chalan'
 
 
 const Navigation = () => {
@@ -28,28 +29,33 @@ const Navigation = () => {
 
         <Route
           path="/verification-requests"
-          element={isAuthenticated ? <VerificationRequets /> : <Navigate to="/verification-requests" />}
+          element={isAuthenticated ? <VerificationRequets /> : <Navigate to="/" />}
         />
 
         <Route
           path="/purchase-history"
-          element={isAuthenticated ? <PurchaseHistory /> : <Navigate to="/purchase-history" />}
+          element={isAuthenticated ? <PurchaseHistory /> : <Navigate to="/" />}
         />
 
         <Route
           path="/top-up-history"
-          element={isAuthenticated ? <TopUpHistory /> : <Navigate to="/top-up-history" />}
+          element={isAuthenticated ? <TopUpHistory /> : <Navigate to="/" />}
         />
 
 
         <Route
           path="/signup"
-          element={isAuthenticated ? <SignUp /> : <Navigate to="/signup" />}
+          element={isAuthenticated ? <SignUp /> : <Navigate to="/" />}
         />
 
         <Route
           path="/agent-users"
-          element={isAuthenticated ? <AgentUsers /> : <Navigate to="/agent-users" />}
+          element={isAuthenticated ? <AgentUsers /> : <Navigate to="/" />}
+        />
+
+        <Route
+          path="/chalan"
+          element={isAuthenticated ? <Chalan /> : <Navigate to="/" />}
         />
 
         {/* Fallback route for any unmatched paths */}

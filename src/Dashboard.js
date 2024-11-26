@@ -56,7 +56,7 @@ const Dashboard = () => {
       formData.append("amount", amount);
 
       await axios.post(
-        `https://puff-puff-production.up.railway.app/api/v1/private/cash-collection`,
+        `http://puff-puff-production.up.railway.app/api/v1/private/cash-collection`,
         formData,
         {
           headers: {
@@ -152,6 +152,20 @@ const Dashboard = () => {
                   </Typography>
                   <Typography variant="h4" color="primary">
                     {data.totalTopUpCount} Times
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            {/* Total Top Up Count Card */}
+            <Grid item xs={12} sm={4} md={4}>
+              <Card sx={{ minWidth: 275, height: "100%" }}>
+                <CardContent>
+                  <Typography variant="h6" component="div">
+                    Total Chalan Amount
+                  </Typography>
+                  <Typography variant="h4" color="primary">
+                    {data.totalChalanAmount} Taka
                   </Typography>
                 </CardContent>
               </Card>

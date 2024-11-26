@@ -75,7 +75,7 @@ const AgentUsers = () => {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h2>Agents</h2>
                 <Button
-                    variant="contained"
+                    variant="outlined"
                     color="primary"
                     onClick={handleOpenDialog}
                     style={{ alignSelf: 'flex-end' }}

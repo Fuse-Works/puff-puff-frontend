@@ -17,6 +17,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import NewReleasesIcon from "@mui/icons-material/NewReleases";
 import AccessibleForwardIcon from '@mui/icons-material/AccessibleForward';
 import { useNavigate, useLocation } from "react-router-dom";
+import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
 
 const drawerWidth = 240;
 
@@ -65,6 +66,7 @@ const Sidebar = () => {
           <DashboardIcon /> Dashboard
         </Typography>
       </Toolbar>
+
       <List>
         <Stack spacing={1}>
           <ListItem
@@ -93,6 +95,7 @@ const Sidebar = () => {
             </ListItemIcon>
             <ListItemText primary="User Management" />
           </ListItem>
+
           <ListItem
             button
             onClick={() => navigate("/purchase-history")}
@@ -117,6 +120,7 @@ const Sidebar = () => {
             </ListItemIcon>
             <ListItemText primary="Purchase History" />
           </ListItem>
+
           <ListItem
             button
             onClick={() => navigate("/top-up-history")}
@@ -141,6 +145,7 @@ const Sidebar = () => {
             </ListItemIcon>
             <ListItemText primary="Top Up History" />
           </ListItem>
+
           <ListItem
             button
             onClick={() => navigate("/agent-users")}
@@ -163,6 +168,32 @@ const Sidebar = () => {
             </ListItemIcon>
             <ListItemText primary="Agents" />
           </ListItem>
+
+        
+          <ListItem
+            button
+            onClick={() => navigate("/chalan")}
+            sx={{
+              backgroundColor: isActive("/chalan") ? "#FC2861" : "inherit",
+              color: isActive("/chalan") ? "#ffffff" : "inherit",
+              borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: "grey",
+              },
+              cursor: "pointer",
+            }}
+          >
+            <ListItemIcon>
+              <ListAltOutlinedIcon
+                sx={{
+                  color: isActive("/chalan") ? "#ffffff" : "inherit",
+                }}
+              />
+            </ListItemIcon>
+            <ListItemText primary="Chalan" />
+          </ListItem>
+
+
           <ListItem
             button
             onClick={() => navigate("/logout")}
@@ -187,6 +218,8 @@ const Sidebar = () => {
           </ListItem>
         </Stack>
       </List>
+
+
       <div
         style={{
           display: "flex",
